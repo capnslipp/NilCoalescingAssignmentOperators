@@ -20,7 +20,7 @@ infix operator =?? : AssignmentPrecedence
 
 /// Assigns only when `rhs` is non-`nil`.
 /// effectively: `lhs = rhs ?? lhs`
-func =??<Wrapped>(lhs:inout Wrapped, rhs:Optional<Wrapped>) {
+public func =??<Wrapped>(lhs:inout Wrapped, rhs:Optional<Wrapped>) {
 	if rhs != nil { lhs = rhs! }
 }
 
@@ -30,9 +30,9 @@ infix operator ??= : AssignmentPrecedence
 
 /// Assigns only when `lhs` is `nil`.
 /// effectively: `lhs = lhs ?? rhs`
-func ??=<Wrapped>(lhs:inout Optional<Wrapped>, rhs:Wrapped) {
+public func ??=<Wrapped>(lhs:inout Optional<Wrapped>, rhs:Wrapped) {
 	if lhs == nil { lhs = rhs }
 }
-func ??=<Wrapped>(lhs:inout ImplicitlyUnwrappedOptional<Wrapped>, rhs:Wrapped) {
+public func ??=<Wrapped>(lhs:inout ImplicitlyUnwrappedOptional<Wrapped>, rhs:Wrapped) {
 	if lhs == nil { lhs = rhs }
 }
