@@ -16,35 +16,80 @@
 
 
 
-infix operator ??= : AssignmentPrecedence
+// MARK: =?? Operator
 
-/// Assigns only when `rhs` is non-`nil`.
-/// effectively: `lhs = rhs ?? lhs`
-public func ??=<Wrapped>(lhs:inout Wrapped, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
-	let rhs = try rhsClosure()
-	if rhs != nil { lhs = rhs! }
-}
+infix operator =?? : AssignmentPrecedence
 
-/// Assigns only when `lhs` is `nil`.
-/// effectively: `lhs = lhs ?? rhs`
-public func ??=<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->Wrapped)) rethrows {
-	if lhs == nil { lhs = try rhsClosure() }
-}
-public func ??=<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped)) rethrows {
-	if lhs == nil { lhs = try rhsClosure() }
-}
 
-/// Assigns only when `lhs` is `nil` and `rhs` is non-`nil`
-/// effectively: `lhs = lhs ?? rhs ?? nil`
-public func ??=<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
-	if lhs == nil {
-		let rhs = try rhsClosure()
-		if rhs != nil { lhs = rhs }
+/// Assigns only when `rhs` is non-`nil`..
+/// - Remark: effectively `lhs = rhs ?? lhs` _(skipping same-value assignments)_
+public func =??<Wrapped>(lhs:inout Wrapped, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
+	let rhs:Wrapped? = try rhsClosure()
+	if rhs != nil {
+		lhs = rhs!
 	}
 }
+/// Assigns only when `rhs` is non-`nil`.
+/// - Remark: effectively `lhs = (rhs ?? lhs) ?? nil` _(skipping same-value assignments)_
+public func =??<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
+	let rhs:Wrapped? = try rhsClosure()
+	if rhs != nil {
+		lhs = rhs
+	}
+}
+/// Assigns only when `rhs` is non-`nil`.
+/// - Remark: effectively `lhs = (rhs ?? lhs) ?? nil` _(skipping same-value assignments)_
+public func =??<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
+	let rhs:Wrapped? = try rhsClosure()
+	if rhs != nil {
+		lhs = rhs
+	}
+}
+
+
+
+// MARK: ??= Operator
+
+infix operator ??= : AssignmentPrecedence
+
+
+// FIXME: The following two variants are commented-out because Swift (3.0.2)'s type inference will apparently auto-promote a `Wrapped` type returned from a closure to `Wrapped?`, then get confused that we have specializations for both `Wrapped` & `Wrapped?`.
+// 	Without commenting these out, we're stuck with explicitly typing any closures used as the RHS.
+// 	With these commented out (using the specializations with always-`Wrapped?` RHSes), we just have to deal with the additional inefficiency of promoting the RHS's `Wrapped` to `Wrapped?` then doing a superfluous `rhs != nil` check.
+///// Assigns only when `lhs` is `nil`.
+///// - Remark: effectively `lhs = lhs ?? rhs` _(skipping same-value assignments)_
+//public func ??=<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->Wrapped)) rethrows {
+//	if lhs == nil {
+//		let rhs:Wrapped = try rhsClosure()
+//		lhs = rhs
+//	}
+//}
+///// Assigns only when `lhs` is `nil`.
+///// - Remark: effectively `lhs = lhs ?? rhs` _(skipping same-value assignments)_
+//public func ??=<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped)) rethrows {
+//	if lhs == nil {
+//		let rhs:Wrapped = try rhsClosure()
+//		lhs = rhs
+//	}
+//}
+
+/// Assigns only when `lhs` is `nil` (and `rhs` is non-`nil`).
+/// - Remark: effectively `lhs = (lhs ?? rhs) ?? nil` _(skipping same-value assignments)_
+public func ??=<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
+	if lhs == nil {
+		let rhs:Wrapped? = try rhsClosure()
+		if rhs != nil {
+			lhs = rhs
+		}
+	}
+}
+/// Assigns only when `lhs` is `nil` (and `rhs` is non-`nil`).
+/// - Remark: effectively `lhs = (lhs ?? rhs) ?? nil` _(skipping same-value assignments)_
 public func ??=<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
 	if lhs == nil {
-		let rhs = try rhsClosure()
-		if rhs != nil { lhs = rhs }
+		let rhs:Wrapped? = try rhsClosure()
+		if rhs != nil {
+			lhs = rhs
+		}
 	}
 }
