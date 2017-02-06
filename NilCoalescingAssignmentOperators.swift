@@ -10,7 +10,7 @@
 /// 	    `_someIvar = someArg ?? _someIvar`  
 /// 	But each of those are a bit messy for a simple maybe-assignment.
 /// @usage:
-/// 	1. Add `NilCoalescingAssignmentOperator.swift` to your project.
+/// 	1. Add `NilCoalescingAssignmentOperators.swift` to your project.
 /// 	2. Use like this: `_someIvar ??= someArg` (given `_someIvar:Int`/`someArg:Int?`, or given `_someIvar:Int?`/`someArg:Int`).
 /// @interwebsouce: https://gist.github.com/capnslipp/9d27a8af34b6ad3402c1d5e5f2a47d0f
 
