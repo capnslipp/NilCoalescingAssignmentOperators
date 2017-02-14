@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'NilCoalescingAssignmentOperators'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.summary = 'A Swift µ-Library for ??/= Combo Operators ??= and =??'
   s.description = "A Swift micro-library that provides two nil-coalescing/assignment combo operators: ??= and =??"
   s.homepage = 'https://github.com/capnslipp/NilCoalescingAssignmentOperators'
