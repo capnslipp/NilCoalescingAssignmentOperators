@@ -1,5 +1,5 @@
 /// @creator: Slipp Douglas Thompson
-/// @license: WTFPL
+/// @license: Public Domain per The Unlicense.  See accompanying LICENSE file or <http://unlicense.org/>.
 /// @purpose: A concise operator syntax for assigning to a non-`Optional` from an `Optional`.
 /// @why:
 /// 	Sometimes in Swift you want to assign only if the RHS is non-`nil`.  
