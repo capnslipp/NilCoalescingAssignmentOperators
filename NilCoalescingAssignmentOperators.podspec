@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name = 'NilCoalescingAssignmentOperators'
   s.version = '0.1.0'
-  s.summary = 'A Swift µ-Framework for Combination ??/Assignment Operators'
-  #s.description = "TODO: Add long description of the pod here."
+  s.summary = 'A Swift µ-Library for ??/= Combo Operators ??= and =??'
+  s.description = "A Swift micro-library that provides two nil-coalescing/assignment combo operators: ??= and =??"
   s.homepage = 'https://github.com/capnslipp/NilCoalescingAssignmentOperators'
   s.license = { :type => 'TBD', :file => 'LICENSE' }
   s.author = { 'capnslipp' => 'NilCoalescingAssignmentOperators@capnslipp.com' }
