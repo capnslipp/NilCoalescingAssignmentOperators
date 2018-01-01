@@ -1,0 +1,4 @@
+language: swift
+xcode_project: NilCoalescingAssignmentOperators.xcodeproj
+xcode_scheme: NilCoalescingAssignmentOperators
+osx_image: xcode9.2
