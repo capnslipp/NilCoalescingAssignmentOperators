@@ -29,6 +29,7 @@ public func =??<Wrapped>(lhs:inout Wrapped, rhsClosure:(@autoclosure ()throws->W
 		lhs = rhs!
 	}
 }
+
 /// Assigns only when `rhs` is non-`nil`.
 /// - Remark: effectively `lhs = (rhs ?? lhs) ?? nil` _(skipping same-value assignments)_
 public func =??<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
@@ -37,14 +38,18 @@ public func =??<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->
 		lhs = rhs
 	}
 }
-/// Assigns only when `rhs` is non-`nil`.
-/// - Remark: effectively `lhs = (rhs ?? lhs) ?? nil` _(skipping same-value assignments)_
-public func =??<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
-	let rhs:Wrapped? = try rhsClosure()
-	if rhs != nil {
-		lhs = rhs
+
+#if (swift(>=3.4) && !swift(>=4.0)) || (swift(>=4.1.50) && !swift(>=4.2)) || swift(>=4.2)
+#else
+	/// Assigns only when `rhs` is non-`nil`.
+	/// - Remark: effectively `lhs = (rhs ?? lhs) ?? nil` _(skipping same-value assignments)_
+	public func =??<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
+		let rhs:Wrapped? = try rhsClosure()
+		if rhs != nil {
+			lhs = rhs
+		}
 	}
-}
+#endif
 
 
 
@@ -83,13 +88,17 @@ public func ??=<Wrapped>(lhs:inout Wrapped?, rhsClosure:(@autoclosure ()throws->
 		}
 	}
 }
-/// Assigns only when `lhs` is `nil` (and `rhs` is non-`nil`).
-/// - Remark: effectively `lhs = (lhs ?? rhs) ?? nil` _(skipping same-value assignments)_
-public func ??=<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
-	if lhs == nil {
-		let rhs:Wrapped? = try rhsClosure()
-		if rhs != nil {
-			lhs = rhs
+
+#if (swift(>=3.4) && !swift(>=4.0)) || (swift(>=4.1.50) && !swift(>=4.2)) || swift(>=4.2)
+#else
+	/// Assigns only when `lhs` is `nil` (and `rhs` is non-`nil`).
+	/// - Remark: effectively `lhs = (lhs ?? rhs) ?? nil` _(skipping same-value assignments)_
+	public func ??=<Wrapped>(lhs:inout Wrapped!, rhsClosure:(@autoclosure ()throws->Wrapped?)) rethrows {
+		if lhs == nil {
+			let rhs:Wrapped? = try rhsClosure()
+			if rhs != nil {
+				lhs = rhs
+			}
 		}
 	}
-}
+#endif
