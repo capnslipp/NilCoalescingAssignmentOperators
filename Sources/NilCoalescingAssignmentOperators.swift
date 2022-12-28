@@ -39,8 +39,8 @@ public func =??<Wrapped>(lhs:inout Wrapped?, rhsClosure:@autoclosure ()throws->W
 	}
 }
 
-#if (swift(>=3.4) && !swift(>=4.0)) || swift(>=4.1.50) // Only compilers older than Swift 4.2 (regardless of Swift version mode).
-#else // #if (swift(>=1.0) && !swift(>=3.4)) || (swift(>=4.0) && !swift(>=4.1.50)) // Only Swift 4.2 compiler or newer (regardless of Swift version mode).
+#if (swift(>=3.4) && !swift(>=4.0)) || (swift(>=4.1.50) && !swift(>=4.2)) || swift(>=4.2) // Only Swift 4.2 compiler or newer (regardless of Swift version mode).
+#else // Only compilers older than Swift 4.2 (regardless of Swift version mode).
 	/// Assigns only when `rhs` is non-`nil`.
 	/// - Remark: effectively `lhs = (rhs ?? lhs) ?? nil` _(skipping same-value assignments)_
 	public func =??<Wrapped>(lhs:inout Wrapped!, rhsClosure:@autoclosure ()throws->Wrapped?) rethrows {
