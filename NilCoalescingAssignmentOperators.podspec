@@ -1,6 +1,11 @@
 Pod::Spec.new do |s|
   s.name = 'NilCoalescingAssignmentOperators'
-  s.version = '0.3.1'
+  s.version = ->{
+    Dir.chdir(__dir__) do
+      semver_regex = /\d+\.\d+\.\d+(?:-[\w\.]+)?(?:\+[\w\.]+)?/
+      return `xcodebuild -showBuildSettings 2>/dev/null`.match(/CURRENT_PROJECT_VERSION = (#{semver_regex})/)[1]
+    end
+  }.call
   s.summary = 'A Swift µ-Library for ??/= Combo Operators ??= and =??'
   s.description = "A Swift micro-library that provides two nil-coalescing/assignment combo operators: ??= and =??"
   s.homepage = 'https://github.com/capnslipp/NilCoalescingAssignmentOperators'
