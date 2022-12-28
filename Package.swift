@@ -9,6 +9,7 @@ let package = Package(
 	dependencies: [],
 	targets: [
 		.target(name: "NilCoalescingAssignmentOperators", dependencies: [], path: "Sources/"),
+		.testTarget(name: "NilCoalescingAssignmentOperatorsTests", dependencies: ["NilCoalescingAssignmentOperators"]),
 	],
 	swiftLanguageVersions: [
 		3,
