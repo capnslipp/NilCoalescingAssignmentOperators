@@ -4,47 +4,47 @@ NilCoalescingAssignmentOperators is Swift micro-library that provides two nil-co
 
 ## `??=`
 
-**`lhs ??= rhs`** works like Ruby's `||=` operator:
+**`aVariable ??= newValue`** performs the value assignment if `aVariable` is nil _(like Ruby's `||=` operator)_:
 
-1. If `lhs` is non-nil, does nothing.
-2. If `lhs` is nil but `rhs` is non-nil, does the assignment: `lhs = rhs`
-3. If `lhs` & `rhs` are both nil, does nothing.
+1. If `aVariable` is non-nil, does nothing.
+2. If `aVariable` is nil but `newValue` is non-nil, does the assignment: `aVariable = newValue`
+3. If `aVariable` & `newValue` are both nil, does nothing.
 
 ```swift
-lhs ??= rhs
+aVariable ??= newValue
 ```
 is equivalent to:
 
 ```swift
 // roughly:
-lhs = lhs ?? rhs
+aVariable = aVariable ?? newValue
 
 // precisely:
-if lhs == nil { lhs = rhs }
+if aVariable == nil { aVariable = newValue }
 ```
 
 ## `=??`
 
-**`lhs =?? rhs`** works similarly, but prefers the `rhs` over the `lhs`:
+**`aVariable =?? newValue`** performs the value assignment if `newValue` is non-nil _(like `??=` but prefers the `newValue` over the `aVariable`)_:
 
-1. If `rhs` is nil, does nothing.
-2. If `rhs` is non-nil, does the assignment: `lhs = rhs`
-  * _If `lhs` & `rhs` are both non-nil, still does the assignment._
+1. If `newValue` is nil, does nothing.
+2. If `newValue` is non-nil, does the assignment: `aVariable = newValue`
+3. If `aVariable` & `newValue` are both non-nil, still does the assignment.
 
 
 ```swift
-lhs =?? rhs
+aVariable =?? newValue
 ```
 is equivalent to:
 
 ```swift
 // roughly:
-lhs = rhs ?? lhs
+aVariable = newValue ?? aVariable
 
 // precisely:
-if rhs != nil { lhs = rhs }
+if newValue != nil { aVariable = newValue }
 // or
-if let rhs = rhs { lhs = rhs }
+if let newValue = newValue { aVariable = newValue }
 ```
 
 
