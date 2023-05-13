@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   }.call
   s.summary = 'A Swift µ-Library for ??/= Combo Operators ??= and =??'
   s.description = "A Swift micro-library that provides two nil-coalescing/assignment combo operators: ??= and =??"
+  s.readme = "https://raw.githubusercontent.com/capnslipp/NilCoalescingAssignmentOperators/#{s.version.to_s}/README.md"
   s.homepage = 'https://github.com/capnslipp/NilCoalescingAssignmentOperators'
   s.license = { :type => 'Public Domain', :file => 'LICENSE' }
   s.author = { 'capnslipp' => 'NilCoalescingAssignmentOperators@capnslipp.com' }
