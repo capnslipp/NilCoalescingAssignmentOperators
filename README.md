@@ -44,7 +44,7 @@ aVariable = newValue ?? aVariable
 // precisely:
 if newValue != nil { aVariable = newValue }
 // or
-if let newValue = newValue { aVariable = newValue }
+if let newValue { aVariable = newValue }
 ```
 
 
